@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <title>Bibliotheca</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <nav>
+    <button onclick="showSection('dashboard')">Dashboard</button>
+    <button onclick="showSection('books')">Livres</button>
+  </nav>
+
+  <section id="dashboard">
+    <h2>Dashboard</h2>
+    <p>Bienvenue dans Bibliotheca</p>
+  </section>
+
+  <section id="books" style="display:none">
+    <h2>Gestion des Livres</h2>
+    <p>Module Livres</p>
+  </section>
+
+  <script src="app.js"></script>
+  <script src="books.js"></script>
+</body>
+</html>

@@ -1,0 +1,21 @@
+body {
+  font-family: Arial, sans-serif;
+}
+
+nav {
+  background: #333;
+  padding: 10px;
+}
+
+nav button {
+  margin-right: 10px;
+  color: white;
+  background: #555;
+  border: none;
+  padding: 8px;
+  cursor: pointer;
+}
+
+section {
+  padding: 20px;
+}
