@@ -17,17 +17,29 @@
     <p>Bienvenue dans Bibliotheca</p>
   </section>
 
-  <section id="books" style="display:none">
-   <h2>Gestion des Livres</h2>
+ <section id="books" style="display:none">
+  <h2>Gestion des Livres</h2>
 
+  <!-- Recherche -->
+  <input type="text" id="search" placeholder="Rechercher un livre">
+
+  <!-- Tri -->
+  <button onclick="sortByTitle()">Trier par titre</button>
+
+  <!-- Formulaire -->
   <form id="bookForm">
+    <input type="hidden" id="bookId">
+
     <input type="text" id="title" placeholder="Titre du livre" required>
     <input type="text" id="author" placeholder="Auteur" required>
-    <button type="submit">Ajouter</button>
+
+    <button type="submit">Enregistrer</button>
   </form>
 
+  <!-- Liste -->
   <ul id="bookList"></ul>
-  </section>
+</section>
+
 
   <script src="app.js"></script>
   <script src="books.js"></script>
