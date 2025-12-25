@@ -12,10 +12,20 @@
     <button onclick="showSection('books')">Livres</button>
   </nav>
 
-  <section id="dashboard">
-    <h2>Dashboard</h2>
-    <p>Bienvenue dans Bibliotheca</p>
-  </section>
+ <section id="dashboard">
+  <h2>Dashboard</h2>
+
+  <div class="kpi">
+    <div class="card">📚 Livres : <span id="totalBooks">0</span></div>
+    <div class="card">✍️ Auteurs : <span id="totalAuthors">0</span></div>
+  </div>
+
+  <canvas id="booksChart" width="400"></canvas>
+
+  <button onclick="loadApiBooks()">Charger livres depuis API</button>
+  <ul id="apiBooks"></ul>
+</section>
+
 
  <section id="books" style="display:none">
   <h2>Gestion des Livres</h2>
@@ -39,9 +49,24 @@
   <!-- Liste -->
   <ul id="bookList"></ul>
 </section>
+<section id="authors" style="display:none">
+  <h2>Gestion des Auteurs</h2>
 
+  <form id="authorForm">
+    <input type="text" id="authorName" placeholder="Nom de l’auteur" required>
+    <button type="submit">Ajouter</button>
+  </form>
+
+  <ul id="authorList"></ul>
+</section>
+<button onclick="showSection('authors')">Auteurs</button>
 
   <script src="app.js"></script>
   <script src="books.js"></script>
+  <script src="authors.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script src="dashboard.js"></script>
+
+
 </body>
 </html>
