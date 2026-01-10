@@ -1,0 +1,444 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bibliotheca - Dashboard Bibliothèque</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="stylesheet" href="style.css">
+    <link rel="icon" type="image/x-icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>📚</text></svg>">
+</head>
+<body>
+    <!-- Sidebar Navigation -->
+    <nav id="sidebar" class="sidebar">
+        <div class="sidebar-header">
+            <h2><i class="fas fa-book"></i> Bibliotheca</h2>
+            <p>Dashboard Bibliothèque</p>
+        </div>
+        <ul class="list-unstyled components">
+            <li>
+                <a href="#dashboard" class="nav-link active">
+                    <i class="fas fa-tachometer-alt"></i> Dashboard
+                </a>
+            </li>
+            <li>
+                <a href="#livres" class="nav-link">
+                    <i class="fas fa-book-open"></i> Livres (Module 1)
+                </a>
+            </li>
+            <li>
+                <a href="#auteurs" class="nav-link">
+                    <i class="fas fa-user-pen"></i> Auteurs (Module 2)
+                </a>
+            </li>
+            <li>
+                <a href="#statistiques" class="nav-link">
+                    <i class="fas fa-chart-bar"></i> Statistiques & API
+                </a>
+            </li>
+        </ul>
+        <div class="sidebar-footer">
+            <p>Étudiant : 20 ans</p>
+            <p>Projet Développement Web</p>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <div class="main-content">
+        <!-- Top Navbar -->
+        <nav class="navbar navbar-expand-lg navbar-light bg-light">
+            <div class="container-fluid">
+                <button type="button" id="sidebarCollapse" class="btn btn-info">
+                    <i class="fas fa-bars"></i>
+                </button>
+                <div class="navbar-nav ms-auto">
+                    <span class="navbar-text">
+                        <i class="fas fa-user"></i> Étudiant Bibliophile
+                    </span>
+                </div>
+            </div>
+        </nav>
+
+        <!-- Page Content -->
+        <div class="content-container">
+            <!-- Dashboard Section -->
+            <section id="dashboard" class="content-section active">
+                <h1><i class="fas fa-tachometer-alt"></i> Dashboard Bibliothèque</h1>
+                <p class="lead">Vue d'ensemble de votre collection de livres</p>
+                
+                <!-- KPI Cards -->
+                <div class="row mt-4">
+                    <div class="col-md-3">
+                        <div class="kpi-card bg-primary text-white">
+                            <div class="kpi-icon">
+                                <i class="fas fa-book"></i>
+                            </div>
+                            <h3 id="total-livres">0</h3>
+                            <p>Livres Total</p>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="kpi-card bg-success text-white">
+                            <div class="kpi-icon">
+                                <i class="fas fa-user-pen"></i>
+                            </div>
+                            <h3 id="total-auteurs">0</h3>
+                            <p>Auteurs Uniques</p>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="kpi-card bg-warning text-white">
+                            <div class="kpi-icon">
+                                <i class="fas fa-star"></i>
+                            </div>
+                            <h3 id="moyenne-pages">0</h3>
+                            <p>Pages Moyennes</p>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="kpi-card bg-info text-white">
+                            <div class="kpi-icon">
+                                <i class="fas fa-tags"></i>
+                            </div>
+                            <h3 id="genres-count">0</h3>
+                            <p>Genres Différents</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Charts Row -->
+                <div class="row mt-5">
+                    <div class="col-md-8">
+                        <div class="chart-container">
+                            <h4>Livres par Genre</h4>
+                            <canvas id="genreChart"></canvas>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="chart-container">
+                            <h4>Top 5 Auteurs</h4>
+                            <canvas id="auteurChart"></canvas>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Recently Added Books -->
+                <div class="row mt-5">
+                    <div class="col-12">
+                        <div class="recent-books">
+                            <h4><i class="fas fa-clock"></i> Derniers Livres Ajoutés</h4>
+                            <div id="recent-books-list" class="row">
+                                <!-- Will be populated by JavaScript -->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Module 1: Livres (CRUD Complet) -->
+            <section id="livres" class="content-section">
+                <div class="section-header">
+                    <h1><i class="fas fa-book-open"></i> Gestion des Livres</h1>
+                    <p>Module 1 - CRUD Complet</p>
+                </div>
+
+                <!-- Search and Sort Bar -->
+                <div class="action-bar">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="input-group">
+                                <input type="text" id="search-input" class="form-control" placeholder="Rechercher un livre...">
+                                <button class="btn btn-outline-primary" id="search-btn">
+                                    <i class="fas fa-search"></i>
+                                </button>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="sort-options">
+                                <select id="sort-select" class="form-select">
+                                    <option value="titre">Trier par Titre (A-Z)</option>
+                                    <option value="titre-desc">Trier par Titre (Z-A)</option>
+                                    <option value="annee">Trier par Année (Croissant)</option>
+                                    <option value="annee-desc">Trier par Année (Décroissant)</option>
+                                    <option value="pages">Trier par Pages (Croissant)</option>
+                                    <option value="pages-desc">Trier par Pages (Décroissant)</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Add Book Form -->
+                <div class="form-container mt-4">
+                    <button class="btn btn-primary mb-3" id="toggle-form-btn">
+                        <i class="fas fa-plus"></i> Ajouter un Nouveau Livre
+                    </button>
+                    
+                    <form id="livre-form" class="hidden">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="mb-3">
+                                    <label for="titre" class="form-label">Titre *</label>
+                                    <input type="text" class="form-control" id="titre" required>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="auteur" class="form-label">Auteur *</label>
+                                    <input type="text" class="form-control" id="auteur" required>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="annee" class="form-label">Année de Publication</label>
+                                    <input type="number" class="form-control" id="annee" min="1000" max="2024">
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="mb-3">
+                                    <label for="genre" class="form-label">Genre</label>
+                                    <select class="form-select" id="genre">
+                                        <option value="Roman">Roman</option>
+                                        <option value="Science-Fiction">Science-Fiction</option>
+                                        <option value="Fantasy">Fantasy</option>
+                                        <option value="Policier">Policier</option>
+                                        <option value="Historique">Historique</option>
+                                        <option value="Philosophique">Philosophique</option>
+                                        <option value="Poésie">Poésie</option>
+                                        <option value="Biographie">Biographie</option>
+                                        <option value="Théâtre">Théâtre</option>
+                                        <option value="Essai">Essai</option>
+                                    </select>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="pages" class="form-label">Nombre de Pages</label>
+                                    <input type="number" class="form-control" id="pages" min="1">
+                                </div>
+                                <div class="mb-3">
+                                    <label for="isbn" class="form-label">ISBN</label>
+                                    <input type="text" class="form-control" id="isbn">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="mb-3">
+                            <label for="resume" class="form-label">Résumé</label>
+                            <textarea class="form-control" id="resume" rows="3"></textarea>
+                        </div>
+                        <div class="form-buttons">
+                            <button type="submit" class="btn btn-success">
+                                <i class="fas fa-save"></i> Enregistrer
+                            </button>
+                            <button type="button" class="btn btn-secondary" id="cancel-form-btn">
+                                <i class="fas fa-times"></i> Annuler
+                            </button>
+                        </div>
+                        <input type="hidden" id="edit-id" value="">
+                    </form>
+                </div>
+
+                <!-- Books List -->
+                <div class="books-list mt-5">
+                    <h3>Collection de Livres</h3>
+                    <div id="books-container" class="row">
+                        <!-- Books will be loaded here -->
+                    </div>
+                </div>
+            </section>
+
+            <!-- Module 2: Auteurs (CRUD Simplifié) -->
+            <section id="auteurs" class="content-section">
+                <div class="section-header">
+                    <h1><i class="fas fa-user-pen"></i> Gestion des Auteurs</h1>
+                    <p>Module 2 - CRUD Simplifié</p>
+                </div>
+
+                <!-- Add Author Form -->
+                <div class="form-container mt-4">
+                    <button class="btn btn-primary mb-3" id="toggle-auteur-form-btn">
+                        <i class="fas fa-user-plus"></i> Ajouter un Auteur
+                    </button>
+                    
+                    <form id="auteur-form" class="hidden">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="mb-3">
+                                    <label for="auteur-nom" class="form-label">Nom *</label>
+                                    <input type="text" class="form-control" id="auteur-nom" required>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="mb-3">
+                                    <label for="auteur-pays" class="form-label">Pays d'Origine</label>
+                                    <input type="text" class="form-control" id="auteur-pays">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="mb-3">
+                            <label for="auteur-bio" class="form-label">Biographie</label>
+                            <textarea class="form-control" id="auteur-bio" rows="3"></textarea>
+                        </div>
+                        <div class="form-buttons">
+                            <button type="submit" class="btn btn-success">
+                                <i class="fas fa-save"></i> Enregistrer
+                            </button>
+                            <button type="button" class="btn btn-secondary" id="cancel-auteur-form-btn">
+                                <i class="fas fa-times"></i> Annuler
+                            </button>
+                        </div>
+                    </form>
+                </div>
+
+                <!-- Authors List -->
+                <div class="authors-list mt-5">
+                    <h3>Liste des Auteurs</h3>
+                    <div id="authors-container" class="row">
+                        <!-- Authors will be loaded here -->
+                    </div>
+                </div>
+            </section>
+
+            <!-- Module 3: Statistiques & API -->
+            <section id="statistiques" class="content-section">
+                <div class="section-header">
+                    <h1><i class="fas fa-chart-bar"></i> Statistiques & API</h1>
+                    <p>Module 3 - Dashboard & Intégration API</p>
+                </div>
+
+                <!-- Statistics Cards -->
+                <div class="row mt-4">
+                    <div class="col-md-4">
+                        <div class="stat-card">
+                            <i class="fas fa-calendar-alt stat-icon"></i>
+                            <h4>Période Couverte</h4>
+                            <p id="periode-couverte">1847 - 2023</p>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="stat-card">
+                            <i class="fas fa-file-alt stat-icon"></i>
+                            <h4>Pages Totales</h4>
+                            <p id="total-pages">0</p>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="stat-card">
+                            <i class="fas fa-language stat-icon"></i>
+                            <h4>Langues</h4>
+                            <p id="langues-count">Français, Anglais</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- API Section -->
+                <div class="api-section mt-5">
+                    <h3><i class="fas fa-cloud"></i> Intégration API OpenLibrary</h3>
+                    <p>Recherche de livres supplémentaires via l'API OpenLibrary</p>
+                    
+                    <div class="row">
+                        <div class="col-md-8">
+                            <div class="input-group mb-3">
+                                <input type="text" id="api-search" class="form-control" placeholder="Rechercher un livre sur OpenLibrary...">
+                                <button class="btn btn-outline-info" id="api-search-btn">
+                                    <i class="fas fa-search"></i> Rechercher
+                                </button>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <button class="btn btn-success" id="add-random-book">
+                                <i class="fas fa-random"></i> Ajouter Livre Aléatoire
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- API Results -->
+                    <div id="api-results" class="mt-4">
+                        <div class="api-results-container">
+                            <h5>Résultats de la Recherche</h5>
+                            <div id="api-books-list" class="row">
+                                <!-- API results will appear here -->
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- API KPI Update -->
+                    <div class="api-kpi mt-5">
+                        <div class="kpi-card bg-dark text-white">
+                            <div class="kpi-icon">
+                                <i class="fas fa-globe"></i>
+                            </div>
+                            <h3 id="api-books-count">0</h3>
+                            <p>Livres Recherchés via API</p>
+                            <small>Dernière recherche: <span id="last-search">-</span></small>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </div>
+
+    <!-- Book Detail Modal -->
+    <div class="modal fade" id="bookDetailModal" tabindex="-1">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="modalBookTitle"></h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-md-4">
+                            <div class="book-cover-placeholder">
+                                <i class="fas fa-book-open"></i>
+                            </div>
+                        </div>
+                        <div class="col-md-8">
+                            <p><strong>Auteur:</strong> <span id="modalBookAuthor"></span></p>
+                            <p><strong>Année:</strong> <span id="modalBookYear"></span></p>
+                            <p><strong>Genre:</strong> <span id="modalBookGenre"></span></p>
+                            <p><strong>Pages:</strong> <span id="modalBookPages"></span></p>
+                            <p><strong>ISBN:</strong> <span id="modalBookISBN"></span></p>
+                            <hr>
+                            <p><strong>Résumé:</strong></p>
+                            <p id="modalBookResume"></p>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+                        <i class="fas fa-times"></i> Fermer
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Confirmation Modal -->
+    <div class="modal fade" id="confirmModal" tabindex="-1">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Confirmation</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <p id="confirmMessage">Êtes-vous sûr de vouloir supprimer cet élément ?</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+                        <i class="fas fa-times"></i> Annuler
+                    </button>
+                    <button type="button" class="btn btn-danger" id="confirmDeleteBtn">
+                        <i class="fas fa-trash"></i> Supprimer
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- Custom JS -->
+    <script src="script.js"></script>
+</body>
+</html>
