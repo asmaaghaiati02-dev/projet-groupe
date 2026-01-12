@@ -4,17 +4,13 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Bibliotheca - Dashboard Bibliothèque</title>
-    <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-    <!-- Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <!-- Chart.js -->
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <link rel="stylesheet" href="style.css">
     <link rel="icon" type="image/x-icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>📚</text></svg>">
 </head>
 <body>
-    <!-- Sidebar Navigation -->
     <nav id="sidebar" class="sidebar">
         <div class="sidebar-header">
             <h2><i class="fas fa-book"></i> Bibliotheca</h2>
@@ -48,9 +44,7 @@
         </div>
     </nav>
 
-    <!-- Main Content -->
     <div class="main-content">
-        <!-- Top Navbar -->
         <nav class="navbar navbar-expand-lg navbar-light bg-light">
             <div class="container-fluid">
                 <button type="button" id="sidebarCollapse" class="btn btn-info">
@@ -64,14 +58,11 @@
             </div>
         </nav>
 
-        <!-- Page Content -->
         <div class="content-container">
-            <!-- Dashboard Section -->
             <section id="dashboard" class="content-section active">
                 <h1><i class="fas fa-tachometer-alt"></i> Dashboard Bibliothèque</h1>
                 <p class="lead">Vue d'ensemble de votre collection de livres</p>
                 
-                <!-- KPI Cards -->
                 <div class="row mt-4">
                     <div class="col-md-3">
                         <div class="kpi-card bg-primary text-white">
@@ -111,7 +102,6 @@
                     </div>
                 </div>
 
-                <!-- Charts Row -->
                 <div class="row mt-5">
                     <div class="col-md-8">
                         <div class="chart-container">
@@ -127,27 +117,23 @@
                     </div>
                 </div>
 
-                <!-- Recently Added Books -->
                 <div class="row mt-5">
                     <div class="col-12">
                         <div class="recent-books">
                             <h4><i class="fas fa-clock"></i> Derniers Livres Ajoutés</h4>
                             <div id="recent-books-list" class="row">
-                                <!-- Will be populated by JavaScript -->
                             </div>
                         </div>
                     </div>
                 </div>
             </section>
 
-            <!-- Module 1: Livres (CRUD Complet) -->
             <section id="livres" class="content-section">
                 <div class="section-header">
                     <h1><i class="fas fa-book-open"></i> Gestion des Livres</h1>
                     <p>Module 1 - CRUD Complet</p>
                 </div>
 
-                <!-- Search and Sort Bar -->
                 <div class="action-bar">
                     <div class="row">
                         <div class="col-md-6">
@@ -173,7 +159,6 @@
                     </div>
                 </div>
 
-                <!-- Add Book Form -->
                 <div class="form-container mt-4">
                     <button class="btn btn-primary mb-3" id="toggle-form-btn">
                         <i class="fas fa-plus"></i> Ajouter un Nouveau Livre
@@ -237,23 +222,19 @@
                     </form>
                 </div>
 
-                <!-- Books List -->
                 <div class="books-list mt-5">
                     <h3>Collection de Livres</h3>
                     <div id="books-container" class="row">
-                        <!-- Books will be loaded here -->
                     </div>
                 </div>
             </section>
 
-            <!-- Module 2: Auteurs (CRUD Simplifié) -->
             <section id="auteurs" class="content-section">
                 <div class="section-header">
                     <h1><i class="fas fa-user-pen"></i> Gestion des Auteurs</h1>
                     <p>Module 2 - CRUD Simplifié</p>
                 </div>
 
-                <!-- Add Author Form -->
                 <div class="form-container mt-4">
                     <button class="btn btn-primary mb-3" id="toggle-auteur-form-btn">
                         <i class="fas fa-user-plus"></i> Ajouter un Auteur
@@ -289,23 +270,19 @@
                     </form>
                 </div>
 
-                <!-- Authors List -->
                 <div class="authors-list mt-5">
                     <h3>Liste des Auteurs</h3>
                     <div id="authors-container" class="row">
-                        <!-- Authors will be loaded here -->
                     </div>
                 </div>
             </section>
 
-            <!-- Module 3: Statistiques & API -->
             <section id="statistiques" class="content-section">
                 <div class="section-header">
                     <h1><i class="fas fa-chart-bar"></i> Statistiques & API</h1>
                     <p>Module 3 - Dashboard & Intégration API</p>
                 </div>
 
-                <!-- Statistics Cards -->
                 <div class="row mt-4">
                     <div class="col-md-4">
                         <div class="stat-card">
@@ -330,7 +307,6 @@
                     </div>
                 </div>
 
-                <!-- API Section -->
                 <div class="api-section mt-5">
                     <h3><i class="fas fa-cloud"></i> Intégration API OpenLibrary</h3>
                     <p>Recherche de livres supplémentaires via l'API OpenLibrary</p>
@@ -351,17 +327,14 @@
                         </div>
                     </div>
 
-                    <!-- API Results -->
                     <div id="api-results" class="mt-4">
                         <div class="api-results-container">
                             <h5>Résultats de la Recherche</h5>
                             <div id="api-books-list" class="row">
-                                <!-- API results will appear here -->
                             </div>
                         </div>
                     </div>
 
-                    <!-- API KPI Update -->
                     <div class="api-kpi mt-5">
                         <div class="kpi-card bg-dark text-white">
                             <div class="kpi-icon">
@@ -377,7 +350,6 @@
         </div>
     </div>
 
-    <!-- Book Detail Modal -->
     <div class="modal fade" id="bookDetailModal" tabindex="-1">
         <div class="modal-dialog modal-lg">
             <div class="modal-content">
@@ -413,7 +385,6 @@
         </div>
     </div>
 
-    <!-- Confirmation Modal -->
     <div class="modal fade" id="confirmModal" tabindex="-1">
         <div class="modal-dialog">
             <div class="modal-content">
@@ -436,9 +407,7 @@
         </div>
     </div>
 
-    <!-- Bootstrap JS -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-    <!-- Custom JS -->
     <script src="script.js"></script>
 </body>
 </html>
