@@ -1,25 +1,23 @@
-
-
 :root {
-    --primary-color: #8B5A2B; /* Marron principal */
-    --primary-light: #F5E8D0; /* Beige très clair */
-    --primary-dark: #6B4423; /* Marron plus foncé */
-    --secondary-color: #D4A574; /* Beige doré */
-    --accent-color: #A0522D; /* Marron terre de sienne */
-    --success-color: #8B7355; /* Marron doux */
-    --warning-color: #BC8F8F; /* Rosé brun */
-    --info-color: #CD853F; /* Marron pêche */
-    --light-bg: #FAF3E6; /* Fond beige très clair */
-    --dark-text: #5C4033; /* Marron chocolat pour texte */
+    --primary-color: #8B5A2B;
+    --primary-light: #F5E8D0;
+    --primary-dark: #6B4423;
+    --secondary-color: #D4A574;
+    --accent-color: #A0522D;
+    --success-color: #8B7355;
+    --warning-color: #BC8F8F;
+    --info-color: #CD853F;
+    --light-bg: #FAF3E6;
+    --dark-text: #5C4033;
     --sidebar-width: 250px;
     --transition-speed: 0.3s;
     --white: #ffffff;
     --shadow-soft: 0 4px 20px rgba(139, 90, 43, 0.1);
     --shadow-medium: 0 6px 25px rgba(107, 68, 35, 0.15);
-    --kpi-1: #8B5A2B; /* Marron - Livres Total */
-    --kpi-2: #6B4423; /* Marron foncé - Auteurs Uniques */
-    --kpi-3: #D4A574; /* Beige doré - Pages Moyennes */
-    --kpi-4: #A0522D; /* Terre de sienne - Genres Différents */
+    --kpi-1: #8B5A2B;
+    --kpi-2: #6B4423;
+    --kpi-3: #D4A574;
+    --kpi-4: #A0522D;
 }
 
 * {
@@ -35,7 +33,6 @@ body {
     overflow-x: hidden;
     line-height: 1.6;
 }
-
 
 .sidebar {
     position: fixed;
@@ -148,7 +145,6 @@ body {
     transform: scale(1.05);
 }
 
-
 .content-section {
     display: none;
     animation: fadeIn 0.5s;
@@ -200,10 +196,300 @@ body {
     border: none;
 }
 
-
 .kpi-card.bg-primary { 
     background: linear-gradient(135deg, #8B5A2B, #6B4423) !important;
 }
 
-.kpi-card.bg-success
+.kpi-card.bg-success { 
+    background: linear-gradient(135deg, #8B7355, #6B5A3D) !important;
+}
 
+.kpi-card.bg-warning { 
+    background: linear-gradient(135deg, #BC8F8F, #A67C7C) !important;
+}
+
+.kpi-card.bg-info { 
+    background: linear-gradient(135deg, #CD853F, #B3742C) !important;
+}
+
+.kpi-card:hover {
+    transform: translateY(-5px);
+    box-shadow: var(--shadow-medium);
+}
+
+.kpi-icon {
+    font-size: 2.5rem;
+    margin-bottom: 15px;
+    opacity: 0.9;
+}
+
+.kpi-card h3 {
+    font-size: 2.2rem;
+    margin-bottom: 5px;
+    font-weight: 600;
+}
+
+.kpi-card p {
+    font-size: 0.95rem;
+    opacity: 0.95;
+    margin-bottom: 0;
+}
+
+.chart-container {
+    background: var(--white);
+    padding: 20px;
+    border-radius: 15px;
+    box-shadow: var(--shadow-soft);
+    height: 100%;
+    border: 1px solid rgba(139, 90, 43, 0.1);
+}
+
+.chart-container h4 {
+    color: var(--accent-color);
+    margin-bottom: 20px;
+    font-weight: 600;
+}
+
+.book-card {
+    background: var(--white);
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: var(--shadow-soft);
+    transition: all 0.3s;
+    height: 100%;
+    border: 1px solid rgba(139, 90, 43, 0.1);
+    margin-bottom: 20px;
+}
+
+.book-card:hover {
+    transform: translateY(-5px);
+    box-shadow: var(--shadow-medium);
+}
+
+.book-cover {
+    height: 180px;
+    background: linear-gradient(135deg, #F5E8D0, #E8D9B5);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+}
+
+.cover-placeholder {
+    text-align: center;
+    color: var(--accent-color);
+}
+
+.cover-placeholder i {
+    font-size: 4rem;
+    margin-bottom: 10px;
+    opacity: 0.8;
+}
+
+.cover-placeholder p {
+    background: rgba(139, 90, 43, 0.1);
+    padding: 5px 10px;
+    border-radius: 20px;
+    font-size: 0.8rem;
+    color: var(--accent-color);
+}
+
+.book-header {
+    padding: 15px 15px 5px;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+}
+
+.book-title {
+    color: var(--accent-color);
+    font-size: 1.1rem;
+    font-weight: 600;
+    margin: 0;
+    flex: 1;
+}
+
+.book-author {
+    padding: 0 15px 10px;
+    color: var(--primary-dark);
+    font-size: 0.9rem;
+}
+
+.book-meta {
+    padding: 0 15px 15px;
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.8rem;
+    color: var(--dark-text);
+    opacity: 0.8;
+}
+
+.book-meta span {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.book-resume {
+    padding: 0 15px 15px;
+    font-size: 0.85rem;
+    color: var(--dark-text);
+    opacity: 0.9;
+    line-height: 1.4;
+}
+
+.book-actions {
+    padding: 15px;
+    background: rgba(245, 232, 208, 0.3);
+    border-top: 1px solid rgba(139, 90, 43, 0.1);
+    display: flex;
+    gap: 10px;
+}
+
+.book-actions .btn-sm {
+    font-size: 0.8rem;
+    padding: 5px 10px;
+    flex: 1;
+}
+
+.action-bar {
+    background: var(--white);
+    padding: 15px;
+    border-radius: 10px;
+    box-shadow: var(--shadow-soft);
+    margin-bottom: 20px;
+}
+
+.form-container {
+    background: var(--white);
+    padding: 20px;
+    border-radius: 12px;
+    box-shadow: var(--shadow-soft);
+}
+
+.form-container.hidden {
+    display: none;
+}
+
+.form-buttons {
+    display: flex;
+    gap: 10px;
+    justify-content: flex-start;
+    margin-top: 20px;
+}
+
+.recent-books {
+    background: var(--white);
+    padding: 20px;
+    border-radius: 15px;
+    box-shadow: var(--shadow-soft);
+}
+
+.recent-book-card {
+    background: rgba(245, 232, 208, 0.5);
+    padding: 15px;
+    border-radius: 10px;
+    text-align: center;
+    height: 100%;
+    transition: all 0.3s;
+    border: 1px solid rgba(139, 90, 43, 0.1);
+}
+
+.recent-book-card:hover {
+    transform: translateY(-3px);
+    background: rgba(245, 232, 208, 0.8);
+}
+
+.recent-book-card h6 {
+    color: var(--accent-color);
+    font-weight: 600;
+    margin-bottom: 5px;
+}
+
+.stat-card {
+    background: var(--white);
+    padding: 25px;
+    border-radius: 15px;
+    text-align: center;
+    box-shadow: var(--shadow-soft);
+    height: 100%;
+    transition: all 0.3s;
+    border: 1px solid rgba(139, 90, 43, 0.1);
+}
+
+.stat-card:hover {
+    transform: translateY(-5px);
+    box-shadow: var(--shadow-medium);
+}
+
+.stat-icon {
+    font-size: 2.5rem;
+    color: var(--accent-color);
+    margin-bottom: 15px;
+}
+
+.api-section {
+    background: var(--white);
+    padding: 25px;
+    border-radius: 15px;
+    box-shadow: var(--shadow-soft);
+}
+
+.api-book-card {
+    background: rgba(245, 232, 208, 0.5);
+    padding: 15px;
+    border-radius: 10px;
+    margin-bottom: 15px;
+    border: 1px solid rgba(139, 90, 43, 0.1);
+}
+
+.book-cover-placeholder {
+    width: 100%;
+    height: 200px;
+    background: linear-gradient(135deg, #F5E8D0, #E8D9B5);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 10px;
+}
+
+.book-cover-placeholder i {
+    font-size: 4rem;
+    color: var(--accent-color);
+    opacity: 0.8;
+}
+
+.hidden {
+    display: none;
+}
+
+.alert {
+    animation: slideIn 0.3s;
+}
+
+@keyframes slideIn {
+    from { transform: translateX(100%); opacity: 0; }
+    to { transform: translateX(0); opacity: 1; }
+}
+
+@media (max-width: 768px) {
+    .sidebar {
+        margin-left: -250px;
+    }
+    
+    .sidebar.active {
+        margin-left: 0;
+    }
+    
+    .main-content {
+        margin-left: 0;
+    }
+    
+    .main-content.active {
+        margin-left: 250px;
+    }
+    
+    .kpi-card {
+        margin-bottom: 15px;
+    }
+}
