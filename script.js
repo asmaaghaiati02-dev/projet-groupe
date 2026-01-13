@@ -377,6 +377,9 @@ function createAuthorCard(author) {
             <p><i class="fas fa-globe"></i> ${author.pays || 'Non spécifié'}</p>
             <p class="book-resume">${author.bio ? author.bio.substring(0, 120) + '...' : 'Aucune biographie'}</p>
             <div class="book-actions">
+                <button class="btn btn-info btn-sm view-author" data-id="${author.id}">
+                    <i class="fas fa-eye"></i> Voir
+                </button>
                 <button class="btn btn-danger btn-sm delete-author" data-id="${author.id}">
                     <i class="fas fa-trash"></i> Supprimer
                 </button>
@@ -384,9 +387,39 @@ function createAuthorCard(author) {
         </div>
     `;
     
+    col.querySelector('.view-author').addEventListener('click', () => viewAuthorDetails(author.id));
     col.querySelector('.delete-author').addEventListener('click', () => showDeleteConfirmation(author.id, 'author'));
     
     return col;
+}
+
+function viewAuthorDetails(id) {
+    const author = authors.find(a => a.id == id);
+    if (!author) return;
+    
+    const authorBooks = books.filter(book => book.auteur === author.nom);
+    
+    document.getElementById('modalAuthorName').textContent = author.nom;
+    document.getElementById('modalAuthorCountry').textContent = author.pays || 'Non spécifié';
+    document.getElementById('modalAuthorBio').textContent = author.bio || 'Aucune biographie disponible.';
+    document.getElementById('modalAuthorBooksCount').textContent = authorBooks.length;
+    
+    const booksList = document.getElementById('modalAuthorBooksList');
+    booksList.innerHTML = '';
+    
+    authorBooks.forEach(book => {
+        const li = document.createElement('li');
+        li.className = 'list-group-item';
+        li.innerHTML = `
+            <strong>${book.titre}</strong> (${book.annee || 'Année inconnue'})
+            <br>
+            <small>${book.genre} - ${book.pages || '?'} pages</small>
+        `;
+        booksList.appendChild(li);
+    });
+    
+    const modal = new bootstrap.Modal(document.getElementById('authorDetailModal'));
+    modal.show();
 }
 
 function handleBookSubmit(e) {
