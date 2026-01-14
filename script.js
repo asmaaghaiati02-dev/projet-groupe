@@ -238,7 +238,7 @@ function toggleBookForm() {
     if (!form.classList.contains('hidden')) {
         document.getElementById('edit-id').value = '';
         document.getElementById('livre-form').reset();
-        document.getElementById('toggle-form-btn').textContent = 'Annuler l\'ajout';
+        document.getElementById('toggle-form-btn').innerHTML = '<i class="fas fa-times"></i> Annuler l\'ajout';
     } else {
         document.getElementById('toggle-form-btn').innerHTML = '<i class="fas fa-plus"></i> Ajouter un Nouveau Livre';
     }
@@ -249,7 +249,7 @@ function toggleAuthorForm() {
     form.classList.toggle('hidden');
     
     if (!form.classList.contains('hidden')) {
-        document.getElementById('toggle-auteur-form-btn').textContent = 'Annuler l\'ajout';
+        document.getElementById('toggle-auteur-form-btn').innerHTML = '<i class="fas fa-times"></i> Annuler l\'ajout';
     } else {
         document.getElementById('toggle-auteur-form-btn').innerHTML = '<i class="fas fa-user-plus"></i> Ajouter un Auteur';
     }
@@ -479,12 +479,15 @@ function handleBookSubmit(e) {
         saveAuthors();
         renderAuthors();
     }
+    
+    showNotification(id ? `Livre "${titre}" modifié avec succès !` : `Livre "${titre}" ajouté avec succès !`, 'success');
 }
 
 function editBook(id) {
     const book = books.find(b => b.id == id);
     if (!book) return;
     
+    // Remplir le formulaire avec les données du livre
     document.getElementById('edit-id').value = book.id;
     document.getElementById('titre').value = book.titre;
     document.getElementById('auteur').value = book.auteur;
@@ -494,13 +497,17 @@ function editBook(id) {
     document.getElementById('isbn').value = book.isbn || '';
     document.getElementById('resume').value = book.resume || '';
     
+    // Afficher le formulaire s'il est caché
     const form = document.getElementById('livre-form');
     if (form.classList.contains('hidden')) {
-        toggleBookForm();
+        form.classList.remove('hidden');
+        document.getElementById('toggle-form-btn').innerHTML = '<i class="fas fa-times"></i> Annuler la modification';
     }
     
-    document.getElementById('toggle-form-btn').innerHTML = '<i class="fas fa-times"></i> Annuler la modification';
+    // Afficher la section des livres si ce n'est pas déjà fait
+    showSection('livres');
     
+    // Scroller vers le formulaire
     form.scrollIntoView({ behavior: 'smooth' });
 }
 
@@ -539,6 +546,8 @@ function handleAuthorSubmit(e) {
     renderAuthors();
     toggleAuthorForm();
     updateDashboard();
+    
+    showNotification(`Auteur "${nom}" ajouté avec succès !`, 'success');
 }
 
 function showDeleteConfirmation(id, type) {
@@ -560,7 +569,11 @@ function showDeleteConfirmation(id, type) {
 }
 
 function confirmDelete() {
+    let itemName = '';
+    
     if (deleteType === 'book') {
+        const book = books.find(b => b.id == deleteId);
+        itemName = book?.titre || 'le livre';
         const index = books.findIndex(b => b.id == deleteId);
         if (index !== -1) {
             books.splice(index, 1);
@@ -569,6 +582,7 @@ function confirmDelete() {
         }
     } else {
         const author = authors.find(a => a.id == deleteId);
+        itemName = author?.nom || "l'auteur";
         if (author) {
             books = books.filter(book => book.auteur !== author.nom);
             authors = authors.filter(a => a.id != deleteId);
@@ -585,6 +599,8 @@ function confirmDelete() {
     modal.hide();
     deleteId = null;
     deleteType = null;
+    
+    showNotification(`${deleteType === 'book' ? 'Livre' : 'Auteur'} "${itemName}" supprimé avec succès !`, 'success');
 }
 
 function performSearch() {
